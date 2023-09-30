@@ -36,7 +36,7 @@ jobs:
         run: |
           rm -rf /opt/st
           git clone https://github.com/lmq8267/cloudflared.git /opt/st
-          tag=`curl https://api.github.com/repos/fatedier/frp/releases/latest | grep 'tag_name' | cut -d\" -f4`
+          tag=`curl https://api.github.com/repos/fatedier/frp/releases/latest | grep 'tag_name' | cut -d\" -f4 | tr -d " v "`
           echo tag=$tag
           sudo chmod 0777 /etc/resolv.conf
           cat >>/etc/resolv.conf <<EOF
