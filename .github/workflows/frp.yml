@@ -43,7 +43,7 @@ jobs:
           nameserver 8.8.8.8 
           nameserver 4.4.4.4
           EOF
-          curl -k -L -o "/opt/st/frp-linux-mipsle.tar.gz" "https://github.com/fatedier/frp/releases/download/v${{tag}}/frp_${{tag}}_linux_mipsle.tar.gz" 
+          curl -k -L -o "/opt/st/frp-linux-mipsle.tar.gz" "https://github.com/fatedier/frp/releases/download/v${tag}/frp_${tag}_linux_mipsle.tar.gz" 
           tar -xzvf /opt/st/frp-linux-mipsle.tar.gz -C /opt
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
           chmod 777 /opt/upx-3.95-amd64_linux/upx
