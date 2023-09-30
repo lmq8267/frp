@@ -66,7 +66,7 @@ jobs:
           body: |
            > ### 上传时间 ：${{ env.build_time }}
 
-           ** [官方更新说明](https://github.com/fatedier/frp/releases)**
+           **[官方更新说明](https://github.com/fatedier/frp/releases)**
           tag_name: ${{ needs.check.outputs.ver }}
           files: |
               /opt/frp_${{ env.tag }}_linux_mipsle.tar.gz
