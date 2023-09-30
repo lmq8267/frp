@@ -48,16 +48,16 @@ jobs:
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
           chmod 777 /opt/upx-3.95-amd64_linux/upx
           chmod 777 /opt/st/strip
-          cd /opt/frp_$tag_linux_mipsle
+          cd /opt/frp_${tag}_linux_mipsle
           /opt/st/strip frpc
           /opt/st/strip frps
           /opt/upx-3.95-amd64_linux/upx --lzma --best frpc
           /opt/upx-3.95-amd64_linux/upx --lzma --best frps
           cd /opt
-          tar czvf frp_$tag_linux_mipsle.tar.gz frp_$tag_linux_mipsle
-          echo $(md5sum frp_$tag_linux_mipsle.tar.gz | awk '{print $1;}') >MD5.txt
+          tar czvf frp_${tag}_linux_mipsle.tar.gz frp_${tag}_linux_mipsle
+          echo $(md5sum frp_${tag}_linux_mipsle.tar.gz | awk '{print $1;}') >MD5.txt
           echo "build_time=$(date '+%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
-          echo "tag=$tag" >> $GITHUB_ENV
+          echo "tag=${tag}" >> $GITHUB_ENV
       - 
         name: 发布
         uses: softprops/action-gh-release@v1
