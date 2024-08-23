@@ -31,6 +31,11 @@ jobs:
       -
         name: 检查代码仓库
         uses: actions/checkout@v3
+      - name: 安装 UPX
+        uses: crazy-max/ghaction-upx@v3
+        with:
+          version: latest
+          install-only: true
       - 
         name: 下载并压缩
         run: |
@@ -46,13 +51,12 @@ jobs:
           curl -k -L -o "/opt/st/frp-linux-mipsle.tar.gz" "https://github.com/fatedier/frp/releases/download/v${tag}/frp_${tag}_linux_mipsle.tar.gz" 
           tar -xzvf /opt/st/frp-linux-mipsle.tar.gz -C /opt
           tar -xvf /opt/st/upx-3.95-amd64_linux.tar.xz -C /opt
-          chmod 777 /opt/upx-3.95-amd64_linux/upx
           chmod 777 /opt/st/strip
           cd /opt/frp_${tag}_linux_mipsle
           /opt/st/strip frpc
           /opt/st/strip frps
-          /opt/upx-3.95-amd64_linux/upx --lzma --best frpc
-          /opt/upx-3.95-amd64_linux/upx --lzma --best frps
+          upx --lzma --best frpc
+          upx --lzma --best frps
           cd /opt
           tar czvf frp_${tag}_linux_mipsle.tar.gz frp_${tag}_linux_mipsle
           echo $(md5sum frp_${tag}_linux_mipsle.tar.gz | awk '{print $1;}') >MD5.txt
@@ -80,3 +84,14 @@ jobs:
         token: ${{ secrets.c8 }}
         retain_days: 2
         keep_minimum_runs: 0
+  keepalive-workflow:
+    # github超过60天未提交将自动停止工作流
+    name: 工作流保活 
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gautamkrishnar/keepalive-workflow@v2
+        #with:
+          #use_api: true
